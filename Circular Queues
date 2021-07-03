@@ -1,0 +1,72 @@
+#include<stdio.h>
+#define size 50
+int queue[size];
+int front==-1;
+int rear=-1;
+int count=0;
+
+int insert(int x){
+    if(count==size){
+        printf("queue overflows");
+        return 0;
+    }
+    rear++;
+    if(rear==size){
+        rear=0;
+    }
+    if(front==-1){
+        front=0;
+    }
+    queue[rear]=x;
+    count++;
+    return 1;
+}
+
+int del(){
+    int x;
+    if(count==0){
+        printf("queue underflows");
+        return -65536;
+    }
+    x=queue[front];
+    front++;
+    if(front==size){
+        front=0;
+    }
+    count--;
+    if(count==0){
+        front=rear=-1;
+    }
+    return x;
+}
+
+void checkFront(){
+    if(count==0){
+        printf("queue underflows");
+    }
+    else{
+        printf("the element present at front is %d",queue[front]);
+    }
+}
+
+int checkRear(){
+    if(count==size){
+        printf("queue overflows");
+        return -65536;
+    }
+    else{
+        return queue[rear];
+    }
+}
+
+void checkFul(){
+    if(count==size){
+        printf("queue overflow");
+    }
+}
+
+void checkEmpty(){
+    if(count ==0){
+        printf("queue empty");
+    }
+}
