@@ -1,0 +1,151 @@
+#include<stdio.h>
+#include<malloc.h>
+typedef struct node{
+    int data;
+    struct node* next;
+}node
+
+node *start=NULL;
+node *end=NULL;
+
+int insert_beg(int x){
+    node *ptr;
+    ptr=(node *)malloc(sizeof(node));
+    if(ptr==NULL){
+        printf("memory is full");
+        return 0;
+    }
+    ptr->data=x;
+    ptr->next=NULL;
+    if(start==NULL){
+        start=ptr;
+    }
+    else{
+        ptr->next=start;
+        start=ptr;
+    }
+    return 1;
+}
+
+int insert_end(int x){
+    node *ptr,*p;
+    ptr=(node *)malloc(sizeof(node));
+    if(ptr==NULL){
+        printf("memory is full");
+        return 0;
+    }
+    ptr ->data=x;
+    ptr->next=NULL;
+    if(start==NULL){
+        start=ptr;
+    }
+    else{
+        p=start;
+        while(p->next!=NULL){
+            p=p->next;
+        }
+        p->next=ptr;
+    }
+    return 1;
+}
+
+int insert_after(int x,int y){
+    node*ptr,*p;
+    ptr=(node *)malloc(sizeof(node));
+    if(ptr==NULL){
+        printf("memory is full");
+        return 0;
+    }
+    ptr->data=x;
+    ptr->next=NULL;
+    if(start==NULL){
+        printf("linklist is emty key is  not found");
+        return 0;
+    }
+    p=start;
+    while(p!=NULL && p->data!=y){
+        p=p->next;
+    }
+    if(p==NULL){
+        printf("key not found");
+        return 0;
+    }
+    else{
+        ptr->next=p->next;
+        p->next=ptr;
+    }
+    return 1;
+}
+
+int insert_before(int x,int key){
+    node *ptr,*p,*prev;
+    ptr=(node *)malloc(sizeof(node));
+    if(ptr==NULL){
+        printf("memory is full");
+        return 0;
+    }
+    ptr->data=x;
+    ptr->next=NULL;
+    if(start==NULL){
+        printf("ll is empty ");
+        return 0;
+    }
+    p=start;
+    prev=NULL;
+    while(p!=NULL && p->data!=key){
+        prev=p;
+        p=p->next;
+    }
+    if(p==NULL){
+        printf("key not found");
+        return 0;
+    }
+    else if(p==start){
+        ptr->next=start;
+        start=ptr;
+    }
+    else{
+        ptr->next=p;
+        prev->next=ptr;
+    }
+    return 1;
+}
+
+int insert_pos(int x,int pos){
+    int i;
+    node *ptr,*p;
+    ptr=(node*)malloc(sizeof(node));
+    if(ptr==NULL){
+        printf("memory is full");
+        return 0;
+    }
+    ptr->data=x;
+    ptr->next=NULL;
+    if(pos<0){
+        printf("invalid pos");
+        return 0;
+    }
+    if(pos<=1){
+        ptr->next=start;
+        start=ptr;
+        return 1;
+    }
+    p=start;
+    fr(i=0;i<=(pos-2);i++){
+        if(p==NULL){
+            break;
+        }
+        else{
+            p=p->next;
+        }
+    }
+    if(p==NULL){
+        printf("invalid pos");
+        return 0;
+    }
+    else{
+        ptr->next=p->next;
+        p->next=ptr;
+        return 1;
+    }
+}
