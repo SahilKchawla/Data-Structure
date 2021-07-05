@@ -1,0 +1,50 @@
+#include<stdio.h>
+#define size 50
+int queue[size];
+int priority[size];
+int front=-1;
+int rear=-1;
+
+int insert(int x,int pri){
+    int i,pos;
+    if(rear==size-1){
+        printf("queue is full");
+        return 0;
+    }
+    if(front==-1){
+        front=0;
+        rear=0;
+        queue[front]=x;
+        priority[front]=pri;
+        return 1;
+    }
+    for(pos=front;pos<=rear;pos++){
+        if(priority[pos]>pri){
+            break;
+        }
+    }
+    for(i=rear;i>=pos;i--){
+        queue[i+1]=queue[i];
+        priority[i+1]=priority[i];
+    }
+    queue[pos]=x;
+    priority[pos]=pri;
+    rear++;
+    return 1;
+}
+
+int del(){
+    int x;
+    if(rear==-1){
+        printf("queue is empty");
+        return -65536;
+    }
+    x=queue[front];
+    if(front==rear){
+        front=rear=-1;
+    }
+    else{
+        front++;
+    }
+    return x;
+}
