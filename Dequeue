@@ -1,0 +1,105 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include<stdio.h>
+#define size 50
+int front=-1;
+int rear=-1;
+
+int insertRear(int x){
+    if(rear==size-1){
+        printf("queue is full");
+        return 0;
+    }
+    rear++;
+    if(front==-1){
+        front++:
+    }
+    queue[rear]=x;
+    return 1;
+}
+
+int insertFront(int x){
+    if(front==0){
+        printf("queue is full");
+        return 0;
+    }
+    if(front==-1){
+        front=rear=0;
+    }
+    else{
+        front--;
+        queue[front]=x;
+        return 1;
+    }
+}
+
+int deleteFront(){
+    int x;
+    if(front==-1){
+        printf("queue is empty");
+        return -65536;
+    }
+    x=queue[front];
+    front++;
+    if(front>rear){
+        front=rear=-1;
+    }
+    return x;
+}
+
+int deleteRear(){
+    int x;
+    if(rear==-1){
+        printf("queue is emoty");
+        return -65536;
+    }
+    x=queue[rear];
+    rear--;
+    if(front>rear){
+        front=rear=-1;
+    }
+    return x;
+}
+
+int checkFront(){
+    if(front==-1){
+        printf("queue is empty");
+        return -65536;
+    }
+    else{
+        return queue[front];
+    }
+}
+
+int checkRear(){
+    if(front==-1){
+        printf("queue is empty");
+    }
+    else{
+        return queue[rear];
+    }
+}
+
+int checkFulFront(){
+    if(front=0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+int checkFulRear(){
+    if(rear==size-1){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
