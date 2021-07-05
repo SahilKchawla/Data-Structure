@@ -8,6 +8,7 @@ Write your code in this editor and press "Run" button to compile and execute it.
 
 #include<stdio.h>
 #define size 50
+int queue[size];
 int front=-1;
 int rear=-1;
 
