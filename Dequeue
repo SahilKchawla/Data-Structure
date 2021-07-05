@@ -19,7 +19,7 @@ int insertRear(int x){
     }
     rear++;
     if(front==-1){
-        front++:
+        front++;
     }
     queue[rear]=x;
     return 1;
