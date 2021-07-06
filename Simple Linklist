@@ -149,3 +149,133 @@ int insert_pos(int x,int pos){
         return 1;
     }
 }
+#include<stdio.h>
+#include<malloc.h>
+typedef struct node{
+    int data;
+    struct node *next;
+}node;
+node *start=NULL;
+
+int del_beg(){
+    int x;
+    node *p;
+    if(start==NULL){
+        printf("linklist is empty");
+        return -65536;
+    }
+    p=start;
+    start=p->next;
+    x=p->data;
+    p->next=NULL;
+    free(p);
+    return x;
+}
+
+int del_end(){
+    int x;
+    node *prev,*p;
+    if(start==NULL){
+        printf("linklist is empty");
+        return -65536;
+    }
+    p=start;
+    prev=NULL;
+    while(p->next!=NULL){
+        prev=p;p=p->next;
+    }
+    if(p==start){
+        start=NULL;
+    }
+    else{
+        prev->next=NULL;
+    }
+    x=p->data;
+    free(p);
+    return x;
+}
+
+int del_after(int key){
+    int x;
+    node *p,*q;
+    if(start==NULL){
+        printf("linklist is empty");
+        return -65536;
+    }
+    p=start;
+    while(p->next!=NULL && p->data!=key){
+        p=p->next;
+    }
+    if(p==NULL){
+        printf("key not found");
+        return -65536;
+    }
+    if(p->next==NULL){
+        printf("no element after the key");
+        return -65536;
+    }
+    q=p->next;
+    p->next=q->next;
+    x=q->data;
+    free(q);
+    return x;
+}
+
+int del_node(int key){
+    node *p,*prev;
+    int x;
+    if(start==NULL){
+        printf("linklist is empty");
+        return -65536;
+    }
+    p=start;
+    p->next=NULL;
+    while(p!=NULL && p->data!=key){
+        p=p->next;
+    }
+    if(p==NULL){
+        printf("key is not found");
+        return -65536;
+    }
+    if(p==start){
+        start=p->next;
+    }
+    else{
+        prev->next=p->next;
+    }
+    p->next=NULL;    
+    x=p->data;
+    free(p);
+    return x;
+}
+
+int search(int key){
+    int pos=0;
+    node *p;
+    if(start==NULL){
+        printf("linklist is empty");
+        return -65536;
+    }
+    p=start;
+    while(p!=NULL && p->data!=key){
+        p=p->next;
+        pos++;
+    }
+    if(p==NULL){
+        return -1;
+    }
+    else{
+        return pos;
+    }
+}
+
+int count(){
+    node *p;
+    int c=0;
+    p=start;
+    while(p!=NULL){
+        p=p->next;
+        c++;
+    }
+    return c;
+}
