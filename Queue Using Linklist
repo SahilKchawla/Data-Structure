@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<malloc.h>
+
+typedef struct node{
+    int data;
+    struct node *next; 
+}node;
+node *front=NULL;
+node *rear=NULL;
+
+int insert(int x){
+    node *ptr;
+    ptr=(node *)malloc(sizeof(node));
+    if(ptr==NULL){
+        printf("memory is full");
+        return 0;
+    }
+    ptr->data=x;
+    ptr->next=NULL;
+    if(front==NULL){
+        front=rear=ptr;
+    }
+    else{
+        rear->next=ptr;
+        rear=ptr;
+    }
+    return 1;
+}
+
+int delete(){
+    int x;
+    node *p;
+    if(front==NULL){
+        printf("queue is empty");
+        return -65536;
+    }
+    p=front;
+    if(front==rear){
+        front=rear=NULL;
+    }
+    else{
+        front=front->next;
+    }
+    x=p->data;
+    p->next=NULL;
+    free(p);
+    return x;
+}
+
+int checkFront(){
+    if(front==NULL){
+        return -65536;
+    }
+    else{
+        return front->data;
+    }
+}
+
+int checkRear(){
+    if(front==NULL){
+        return -65536;
+    }
+    else{
+        return rear->data;
+    }
+}
