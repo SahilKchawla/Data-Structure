@@ -149,13 +149,6 @@ int insert_pos(int x,int pos){
         return 1;
     }
 }
-#include<stdio.h>
-#include<malloc.h>
-typedef struct node{
-    int data;
-    struct node *next;
-}node;
-node *start=NULL;
 
 int del_beg(){
     int x;
