@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<malloc.h>
+typedef struct node{
+    int data;
+    struct node *next;
+}node;
+node *top=NULL;
+
+int push(int x){
+    node *ptr;
+    ptr=(node *)malloc(size of(node));
+    if(ptr==NULL){
+        printf("memory is full");
+        return -65536;
+    }
+    ptr->data=x;
+    ptr->next=NULL;
+    if(top==NULL){
+        top=ptr;
+    }
+    else{
+        ptr->next=top;
+        top=ptr;
+    }
+    return 1;
+}
+
+int pop(){
+    int x;
+    node *p;
+    if(top==NULL){
+        printf("stack is empty");
+        return -65536;
+    }
+    p=top;
+    top=top->next;
+    x=p->data;
+    p->next=NULL;
+    free(p);
+    return x;
+}
+
+int peek(){
+    int x;
+    if(top==NULL){
+        printf("stack is empty");
+        return -65536;
+    }
+    x=top->data;
+    return x;
+}
