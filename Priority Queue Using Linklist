@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<malloc.h>
+
+typedef struct node{
+    int data;
+    int priority;
+    struct node * next;
+}node;
+node *front, *rear;
+
+int insert(int x,int pri){
+    node * ptr,*p,*prev;
+    ptr=(node *)malloc(sizeof(node));
+    if(ptr==NULL){
+        printf("memeory is full");
+        return 0;
+    }
+    ptr->data=x;
+    ptr->priority=pri;
+    ptr->next=NULL;
+    if(pri<0){
+        printf("invalid priority");
+        return 0;
+    }
+    if(front==NULL){
+        front=rear=ptr;
+    }
+    else{
+        p=front;
+        prev=NULL;
+        while(p!=NULL && p->pri<=ptr->pri){
+            prev=p;
+            p=p->next;
+        }
+        if(p==NULL){
+            rear->next=ptr;
+            rear=ptr;
+        }
+        else if(p==front){
+            ptr->next=front;
+            front=ptr;
+        }
+        else{
+            ptr->next=p;
+            prev->next=ptr;
+        }
+    }
+    return 1;
+}
