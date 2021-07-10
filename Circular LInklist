@@ -1,0 +1,145 @@
+#include<stdio.h>
+#include<malloc.h>
+
+typedef struct node{
+    int data;
+    struct node * next;
+}node;
+node *start,*end;
+
+int insert_beg(int x){
+    node *ptr;
+    ptr=(node *) malloc(sizeof(node));
+    if(start==NULL){
+        start=end=ptr;
+    }
+    else{
+        ptr->next=start;
+        start=ptr;
+        end->next=start;
+    }
+    return 1;
+}
+
+int insert_end(int x){
+    node *ptr;
+    ptr=(node *) malloc(sizeof(node));
+    if(start==NULL){
+        start=end=ptr;
+    }
+    else{
+        ptr->next=end;
+        end=ptr;
+        end->next=start
+    }
+    return 1;
+}
+
+int insert_after(int x,int key){
+    node *ptr;
+    ptr=(node *) malloc(sizeof(node));
+    if(start==NULL){
+        printf("linklist is empty");
+        return 0;
+    }
+    else{
+        p=start;
+        while(p!=NULL && p->data!=key){
+            p=p->next;
+        }
+        if(p==end && p->data==key){
+            end->next=ptr;
+            end=ptr;
+            end->next=start;
+        }
+        else if(p==end && p->data!=key){
+            printf("key not found");
+            return 0;
+        }
+        else{
+            ptr->next=p->next;
+            p->next=ptr;
+        }
+        return 1;
+    }
+}
+
+int insert_before(int x,int key){
+    node *p,*prev,*ptr;
+    node *ptr;
+    ptr=(node *) malloc(sizeof(node));
+    if(start==NULL){
+        printf("linklist is empty");
+        return 0;
+    }
+    prev=NULL;
+    p=start;
+    while(p!=NULL && p->data!=key){
+        prev=p;
+        p=p->next;
+    }
+    if(p==end && p->data!=key){
+        printf("key not found");
+        return 0;
+    }
+    else if(p==start){
+        ptr->next=start;
+        start=ptr;
+        end->next=start;
+    }
+    else{
+        ptr->next=p;
+        prev->next=ptr;
+    }
+    return 1;
+}
+
+int insert_pos(int x,int pos){
+    int i,invalid=0;
+    node *ptr,*p;
+    node *ptr;
+    ptr=(node *) malloc(sizeof(node));
+    ptr->data=x;
+    ptr->next=NULL;
+    if(pos<0){
+        printf("invalid pos");
+        return 0;
+    }
+    if(pos<=1){
+        if(start==NULL){
+            start=end=ptr;
+        }
+        else{
+            ptr->next=start;
+            start=ptr;
+            end->next=start;
+        }
+    }
+    else{
+        p=start;
+        for(i=1;i<=(pos-2);i++){
+            if(p==NULL){
+                invalid=1;
+                break;
+            }
+            p=p->next;
+            if(p==start){
+                invalid=1;
+                break;
+            }
+        }
+        if(invalid==1){
+            printf("invalid pos");
+            return 0;
+        }
+        else{
+            ptr->next=p->next;
+            p->next=ptr;
+            if(p==end){
+                end=ptr;
+                end->next=start;
+            }
+        }
+    }
+    return 1;
+}
