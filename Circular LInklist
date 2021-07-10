@@ -143,3 +143,121 @@ int insert_pos(int x,int pos){
     }
     return 1;
 }
+
+int del_beg(){
+    int x;
+    node *p;
+    if(start==NULL){
+        printf("ll is empty");
+        return -65536;
+    }
+    p=start;
+    if(start==end){
+        start=end=NULL;
+    }
+    else{
+        start=start->next;
+        end->next=start;
+    }
+    x=p->data;
+    free(p);
+    return x;
+}
+
+int del_end(){
+    int x;
+    node *p,*prev;
+    if(start==NULL){
+        printf("ll is empty");
+        return -65536;
+    }
+    p=end;
+    prev=NULL;
+    if(start==end){
+        start=end=NULL;
+    }
+    else{
+        prev=start;
+        while(prev->next!=end){
+            prev=prev->next;
+        }
+        end=prev;
+        end->next=start;
+    }
+    x=p->data;
+    p->next=NULL;
+    free(p);
+    return x;
+}
+
+int del_after(int key){
+    int x;
+    node *p,*q;
+    if(start==NULL){
+        printf("ll is empty");
+        return -65536;
+    }
+    if(start==end){
+        printf("only one element");
+        return -65536;
+    }
+    p=start;
+    while(p!=end && p->data!=key){
+        p=p->next;
+    }
+    if(p==end && p->data!=key){
+        printf("key not found");
+        return -65536;
+    }
+    else if(p==end && p->data==key){
+        q=start;
+        start=start->next;
+        end->next=start;
+    }
+    else if(p->next=end){
+        q=end;
+        end=p;
+        end->next=start;
+    }
+    else{
+        q=p->next;
+        p->next=q->next;
+    }
+    x=q->data;
+    q->next=NULL;
+    free(q);
+    return x;
+}
+
+int del_node(int key){
+    node *p,*prev;
+    if(start==NULL){
+        printf("ll is empty");
+        return -65536;
+    }
+    p=start;
+    prev=NULL;
+    while(p!=NULL && p->data!=key){
+        prev=p;
+        p=p->next;
+    }
+    if(p==end && p->data!=key){
+        printf("key not found");
+        return -65536;
+    }
+    if(p==end && p->data==key){
+        end=prev;
+        end->next=start;
+    }
+    else if(p==start){
+        start=start->next;
+        end->next=start;
+    }
+    else{
+        prev->next=p->next;
+    }
+    x=p->data;
+    p->next=NULL;
+    free(p);
+    return x;
+}
