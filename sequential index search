@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+
+struct ind
+{
+    int kindex[10];
+    int pindex[10];
+};
+
+void main(){
+    int a[100],n,i,key,p,indexsize,blocksize;
+    struct int index;
+    int indexed_seq_search(int a[],int,struct ind,int,int);
+    void bubble_sort(int[],int);
+    printf("how many integers");
+    scanf("%d",&n);
+    indexsize=floor(sqrt(n));
+    blocksize=n/indexsize;
+    printf("enter integer=");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    printf("enter the element to be searched");
+    scanf("%d",&key);
+    bubble_sort(a,n);
+    for(i=0;i<indexsize;i++)
+    {
+        index.pindex[i]=(i+1)*blocksize-1;
+        index.kindex[i]=a[(i+1)*blocksize-1];
+        printf("%6d %6d \n",index.kindex[i],index.pindex[i]);
+    }
+    printf("sorted array \n");
+     for(i=0;i<n;i++){
+        printf("%6d",a[i]);
+    }
+    p=indexed_seq_search(a,n,index,indexsize,key);
+    if(p==-1){
+        printf("key not found");
+    }
+    else{
+        printf("%d is present at %d position",key,p);
+    }
+}
+
+void bubble_sort(int a[],int n)
+{
+    int i,j,temp;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n-1-i;j++)
+        {
+            if(a[j]>a[j+1])
+            {
+                temp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=temp;
+            }
+        }
+    }
+}
+
+int indexed_seq_search(int x[],int n,struct ind index,int indexsize,int key)
+{
+    int i,j,lowlim,highlim;
+    i=0;
+    while(i<indexsize && index.kindex[i]<key)
+    {
+        i++;
+    }
+    if(i==0)
+    {
+        lowlim=0;
+    }
+    else{
+        lowlim=index.pindex[i-1]+1;
+    }
+    if(i>=indexsize){
+        highlim=n-1;
+    }
+    else{
+        highlim=index.pindex[i];
+    }
+    j=lowlim;
+    while(j<=highlim && x[j]<key){
+        j++;
+    }
+    if(j<=highlim && key==x[j]){
+        return j;
+    }
+    else{
+        return -1;
+    }
+}
